@@ -1,0 +1,14 @@
+
+# Helm
+module "sonar" {
+  source  = "./modules/sonar"
+
+  cluster_host            = "${module.gke.cluster_endpoint}"
+  cluster_user            = "${var.admin_username}"
+  cluster_password        = "${var.admin_password}"
+
+  cluster_client_cert     = "${base64decode(module.gke.client_certificate)}"
+  cluster_client_key      = "${base64decode(module.gke.client_key)}"
+  cluster_ca_cert         = "${base64decode(module.gke.cluster_ca_certificate)}"
+  cluster_service_account = "${module.jenkins.cluster_service_account}"
+}
