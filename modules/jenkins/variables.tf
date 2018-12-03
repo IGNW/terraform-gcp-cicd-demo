@@ -37,3 +37,13 @@ variable "cluster_ca_cert" {
     type        = "string"    
     description = "GKE Cluster cluster CA certificate."
 }
+
+variable "jenkins_user" {
+    type        = "string"
+    description = "Jenkins ADMIN user account."
+}
+
+variable "jenkins_password" {
+    type        = "string"
+    description = "Jenkins ADMIN user account password."
+}

@@ -29,4 +29,7 @@ module "jenkins" {
   cluster_client_cert     = "${base64decode(module.gke.client_certificate)}"
   cluster_client_key      = "${base64decode(module.gke.client_key)}"
   cluster_ca_cert         = "${base64decode(module.gke.cluster_ca_certificate)}"
+
+  jenkins_user            = "${var.jenkins_user}"
+  jenkins_password        = "${var.jenkins_password}"
 }
