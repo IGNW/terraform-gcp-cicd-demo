@@ -25,6 +25,14 @@ resource "null_resource" "configure_kubectl" {
   }
 }
 
+
+resource "kubernetes_service_account" "tiller" {
+  metadata {
+    name      = "tiller"
+    namespace = "kube-system"  
+  }
+}
+
 resource "null_resource" "helm_init" {
 
   triggers {
@@ -38,13 +46,6 @@ resource "null_resource" "helm_init" {
     EOF
   }
   depends_on = ["null_resource.configure_kubectl"]
-}
-
-resource "kubernetes_service_account" "tiller" {
-  metadata {
-    name      = "tiller"
-    namespace = "kube-system"  
-  }
 }
 
 resource "kubernetes_cluster_role_binding" "tiller_cluster_role" {
@@ -75,6 +76,7 @@ resource "null_resource" "helm_bootstrap" {
   triggers {
     service_account_id = "${kubernetes_service_account.tiller.id}"
   }
+	
 
   provisioner "local-exec" {
     command = <<EOF
