@@ -88,5 +88,5 @@ resource "null_resource" "helm_bootstrap" {
     EOF
   }
 
-  depends_on = ["kubernetes_service_account.tiller", "kubernetes_cluster_role_binding.tiller_cluster_role"]
+  depends_on = ["kubernetes_service_account.tiller", "kubernetes_cluster_role_binding.tiller_cluster_role", "null_resource.helm_init"]
 }
