@@ -31,3 +31,13 @@ variable "labels" {
   default = {  
   }
 }
+
+variable "jenkins_user" {
+  type        = "string"
+  description = "Jenkins ADMIN user account."
+}
+
+variable "jenkins_password" {
+  type        = "string"
+  description = "Jenkins ADMIN user account password."
+}
