@@ -1,7 +1,4 @@
 provider "google" {
-  project = "ignw-internal-tools"
-  region  = "us-central1"
-  zone    = "us-central1-c"
 }
 
 # Google Kubernetes Engine (GKE) Cluster

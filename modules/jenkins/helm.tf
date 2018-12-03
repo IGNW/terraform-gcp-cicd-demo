@@ -18,8 +18,9 @@ resource "null_resource" "configure_kubectl" {
   provisioner "local-exec" {
     command = <<EOF
         echo 'Configuring local kubectl...'
-        gcloud config set project ignw-internal-tools
-        gcloud config set compute/zone us-central1-c
+        gcloud config set project $GOOGLE_PROJECT
+        gcloud config set compute/region GOOGLE_REGION
+        gcloud config set compute/zone $GOOGLE_ZONE
         gcloud container clusters get-credentials ${var.cluster_name}
     EOF
   }
