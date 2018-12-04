@@ -48,11 +48,3 @@ variable "jenkins_password" {
     description = "Jenkins ADMIN user account password."
 }
 
-variable "jenkins_plugins" {
-  type        = "string"
-	default     = "google-oauth-plugin:0.6"
-  description = "List of space seperated plugins to install"
-}
-
-
-

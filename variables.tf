@@ -42,8 +42,3 @@ variable "jenkins_password" {
   description = "Jenkins ADMIN user account password."
 }
 
-variable "jenkins_plugins" {
-  type        = "string"
-  description = "List of space seperated plugins to install"
-}
-
