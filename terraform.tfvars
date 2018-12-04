@@ -1,5 +1,5 @@
 gke_cluster_name = "cicd"
-gke_node_count = 3
+gke_node_count = 1 
 admin_username = "admin"
 admin_password = "supersecretpassword"
 
