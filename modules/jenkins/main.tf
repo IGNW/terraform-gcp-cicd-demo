@@ -40,5 +40,5 @@ resource "helm_release" "jenkins" {
     name      = "jenkins"
     chart     = "stable/jenkins"
 		values = ["${data.template_file.values.rendered}"]
-    depends_on = ["null_resource.helm_bootstrap"]
+    depends_on = ["null_resource.helm_bootstrap", "kubernetes_secret.xmlcredentials"]
 }
