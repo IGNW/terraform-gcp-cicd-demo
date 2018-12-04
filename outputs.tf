@@ -13,3 +13,7 @@ output "labels" {
   value       = "${var.labels}"
 }
 
+output "admin_user" {
+  description = "Cluster labels"
+  value       = "${var.jenkins_user}"
+}

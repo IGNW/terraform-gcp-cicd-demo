@@ -47,3 +47,4 @@ variable "jenkins_password" {
     type        = "string"
     description = "Jenkins ADMIN user account password."
 }
+
