@@ -122,22 +122,78 @@ Master:
   # SecretsFilesSecret: jenkins-secrets
   # Jenkins XML job configs to provision
   Jobs: 
-    test: |-
-      <?xml version='1.0' encoding='UTF-8'?>
-      <project>
-      <keepDependencies>false</keepDependencies>
-      <properties/>
-      <scm class="hudson.scm.NullSCM"/>
-      <canRoam>false</canRoam>
-      <disabled>false</disabled>
-      <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-      <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-      <triggers/>
-      <concurrentBuild>false</concurrentBuild>
-      <builders/>
-      <publishers/>
-      <buildWrappers/>
-      </project>
+    multibranch: |
+      <?xml version='1.1' encoding='UTF-8'?>
+      <org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.20">
+        <actions/>
+        <description></description>
+        <properties>
+          <com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty plugin="cloudbees-folder@6.7">
+            <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash">
+              <entry>
+                <com.cloudbees.plugins.credentials.domains.Domain plugin="credentials@2.1.18">
+                  <specifications/>
+                </com.cloudbees.plugins.credentials.domains.Domain>
+                <java.util.concurrent.CopyOnWriteArrayList>
+                  <com.google.jenkins.plugins.credentials.oauth.GoogleRobotMetadataCredentials plugin="google-oauth-plugin@0.6">
+                    <module class="com.google.jenkins.plugins.credentials.oauth.GoogleRobotMetadataCredentialsModule"/>
+                    <projectId>ignw-internal-tools</projectId>
+                  </com.google.jenkins.plugins.credentials.oauth.GoogleRobotMetadataCredentials>
+                </java.util.concurrent.CopyOnWriteArrayList>
+              </entry>
+            </domainCredentialsMap>
+          </com.cloudbees.hudson.plugins.folder.properties.FolderCredentialsProvider_-FolderCredentialsProperty>
+          <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.3.3">
+            <dockerLabel></dockerLabel>
+            <registry plugin="docker-commons@1.13"/>
+          </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+        </properties>
+        <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.1.1">
+          <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+        </folderViews>
+        <healthMetrics>
+          <com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric plugin="cloudbees-folder@6.7">
+            <nonRecursive>false</nonRecursive>
+          </com.cloudbees.hudson.plugins.folder.health.WorstChildHealthMetric>
+        </healthMetrics>
+        <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.1.1">
+          <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+        </icon>
+        <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.7">
+          <pruneDeadBranches>true</pruneDeadBranches>
+          <daysToKeep>-1</daysToKeep>
+          <numToKeep>-1</numToKeep>
+        </orphanedItemStrategy>
+        <triggers>
+          <com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger plugin="cloudbees-folder@6.7">
+            <spec>* * * * *</spec>
+            <interval>60000</interval>
+          </com.cloudbees.hudson.plugins.folder.computed.PeriodicFolderTrigger>
+        </triggers>
+        <disabled>false</disabled>
+        <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.1.1">
+          <data>
+            <jenkins.branch.BranchSource>
+              <source class="jenkins.plugins.git.GitSCMSource" plugin="git@3.9.1">
+                <id>ee1b7c73-0b84-4655-ac27-6054dc9f3681</id>
+                <remote>https://github.com/TylerwIGNW/sample-app.git</remote>
+                <credentialsId></credentialsId>
+                <traits>
+                  <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
+                </traits>
+              </source>
+              <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
+                <properties class="empty-list"/>
+              </strategy>
+            </jenkins.branch.BranchSource>
+          </data>
+          <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+        </sources>
+        <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
+          <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+          <scriptPath>Jenkinsfile</scriptPath>
+        </factory>
+      </org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>
   CustomConfigMap: false
   # By default, the configMap is only used to set the initial config the first time
   # that the chart is installed.  Setting `OverwriteConfig` to `true` will overwrite
